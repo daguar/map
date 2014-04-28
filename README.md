@@ -1,11 +1,7 @@
-# Not functional yet, just needed a public repo to test on a remote server
-
----
-
-## Mapping all the addresses
+## a map of openaddresses
 
 ### Dependencies
-- [https://github.com/ericfischer/datamaps](Datamaps dependencies)
+- [Datamaps dependencies](https://github.com/ericfischer/datamaps)
 - ~6 GB of disk space
 - time/patience/cpu powwa
 
@@ -23,5 +19,5 @@ directory and name it `addresses`. This will skip the download step.
 
 #### Preview
 Want to preview your tiles?
-- `pushd tiles3; python -m SimpleHTTPServer; popd`
+- `pushd tiles; python -m SimpleHTTPServer; popd`
 - open preview.html in your browser

@@ -1,4 +1,4 @@
-all: addresses datamaps mbutil openaddresses-merge
+all: addresses datamaps mbutil addresses/merge.csv
 
 latest-addresses.zip:
 	curl -o latest-addresses.zip 'http://s3.amazonaws.com/openaddresses/openaddresses-processed.zip'
@@ -12,14 +12,15 @@ datamaps:
 
 mbutil:
 	git clone https://github.com/mapbox/mbutil.git
-	mbutil/mb-util -https
+	mbutil/mb-util -h
+
+addresses/merge.csv: openaddresses-merge
+	sh openaddresses-merge/merge.sh addresses/
 
 openaddresses-merge:
 	git clone https://github.com/openaddresses/openaddresses-merge.git
-	if [ ! -f addresses/merge.csv ] sh openaddresses-merge/merge.sh addresses/
-	# we now have addresses/merge.csv
 
-dm-data: openaddresses-merge
+dm-data: addresses/merge.csv
 	while read line
 	do
 		IFS=', ' read -a split <<< "$line"

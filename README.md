@@ -16,3 +16,8 @@ zoom level, and package those tiles into an mbtiles for uploading to
 
 If you already have a directory of openaddresses data, put it in this
 directory and name it `addresses`. This will skip the download step.
+
+#### Preview
+Want to preview your tiles?
+- `pushd tiles3; python -m SimpleHTTPServer; popd`
+- open preview.html in your browser

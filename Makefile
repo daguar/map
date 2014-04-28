@@ -16,15 +16,15 @@ mbutil:
 
 openaddresses-merge:
 	git clone https://github.com/openaddresses/openaddresses-merge.git
-	sh openaddresses-merge/merge.sh addresses/
+	if [ ! -f addresses/merge.csv ] sh openaddresses-merge/merge.sh addresses/
 	# we now have addresses/merge.csv
 
-# dm-data: merge
-# 	while read line
-# 	do
-# 		IFS=', ' read -a split <<< "$line"
-# 		echo "${split[1]},${split[0]}"
-# 	done < $1
+dm-data: openaddresses-merge
+	while read line
+	do
+		IFS=', ' read -a split <<< "$line"
+		echo "${split[1]},${split[0]}"
+	done < $1
 
 tiles:
 	datamaps/enumerate -z0 -Z12 dir/ | xargs -L1 -P4 datamaps/render -B 11:0.5:1 -t 0 -o tiles/ -m

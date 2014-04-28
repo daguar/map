@@ -1,3 +1,4 @@
+#!/bin/bash
 while read line
 do
     IFS=', ' read -a split <<< "$line"

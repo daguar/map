@@ -23,8 +23,8 @@ addresses/merge.csv: openaddresses-merge
 openaddresses-merge:
 	git clone https://github.com/openaddresses/openaddresses-merge.git
 
-data.dm: addresses/merge.csv
-	sh datamaps.sh address/merge.csv >> data.dm
+data.dm: addresses/merge.csv data.dm
+	sh datamap.sh address/merge.csv >> data.dm
 
 tiles:
 	datamaps/enumerate -z0 -Z12 dir/ | xargs -L1 -P4 datamaps/render -B 11:0.5:1 -t 0 -o tiles/ -m

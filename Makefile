@@ -1,7 +1,7 @@
-all: addresses datamaps mbutil addresses/merge.csv
+all: openaddresses.mbtiles
 
 clean:
-	rm -rf addresses
+	rm -rf addresses datamaps mbutil openaddresses-merge data.dm encoded-dm tiles
 
 latest-addresses.zip:
 	curl -o latest-addresses.zip 'http://s3.amazonaws.com/openaddresses/openaddresses-processed.zip'
@@ -15,16 +15,21 @@ datamaps:
 
 mbutil:
 	git clone https://github.com/mapbox/mbutil.git
-	mbutil/mb-util -h
 
-addresses/merge.csv: openaddresses-merge
+addresses/merge.csv: addresses openaddresses-merge
 	sh openaddresses-merge/merge.sh addresses/
 
 openaddresses-merge:
 	git clone https://github.com/openaddresses/openaddresses-merge.git
 
-data.dm: addresses/merge.csv data.dm
-	sh datamap.sh address/merge.csv >> data.dm
+data.dm: datamaps addresses/merge.csv
+	bash datamap.sh addresses/merge.csv >> data.dm
 
-tiles:
-	datamaps/enumerate -z0 -Z12 dir/ | xargs -L1 -P4 datamaps/render -B 11:0.5:1 -t 0 -o tiles/ -m
+encoded-dm: data.dm
+	cat data.dm | ./datamaps/encode -o encoded-dm -z 18
+
+tiles: encoded-dm
+	datamaps/enumerate -z0 -Z12 encoded-dm/ | xargs -L1 -P4 datamaps/render -B 12:0.5:1 -t 0 -o tiles/ -m
+
+openaddresses.mbtiles: tiles
+	mbutil/mb-util tiles openaddresses.mbtiles

@@ -45,7 +45,7 @@ tiles: encoded-dm
 	datamaps/enumerate -z14 -Z14 encoded-dm/ | xargs -L1 -P8 datamaps/render -B 14:0.5:1.05 -t 0 -o tiles/
 	datamaps/enumerate -z15 -Z15 encoded-dm/ | xargs -L1 -P8 datamaps/render -B 15:0.5:1.1 -t 0 -o tiles/
 	datamaps/enumerate -z16 -Z16 encoded-dm/ | xargs -L1 -P8 datamaps/render -B 16:0.5:1.2 -t 0 -o tiles/
-	datamaps/enumerate -z17 -Z17 encoded-dm/ | xargs -L1 -P8 datamaps/render -B 17:0.5:1.3 -t 0 -o tiles/
+	# datamaps/enumerate -z17 -Z17 encoded-dm/ | xargs -L1 -P8 datamaps/render -B 17:0.5:1.3 -t 0 -o tiles/
 
-openaddresses.mbtiles: tiles
+openaddresses.mbtiles: mbutil tiles
 	mbutil/mb-util tiles openaddresses.mbtiles

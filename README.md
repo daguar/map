@@ -19,6 +19,6 @@ If you already have a directory of openaddresses data, put it in this
 directory and name it `addresses`. This will skip the download step.
 
 #### Preview
-Want to preview your tiles locally?
-- `pushd tiles; python -m SimpleHTTPServer; popd`
-- open preview.html in your browser
+Want to preview your tiles?
+- Run `python -m SimpleHTTPServer`
+- open preview.html in your browser (for example, http://localhost:8000/preview.html if running locally or http://192.168.1.13:8000/preview.html if running on a remote server at that IP)
